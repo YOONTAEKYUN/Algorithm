@@ -5,7 +5,6 @@ public class Main {
     public void solution() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
-        int num = 0;
 
         StringBuilder sb = new StringBuilder();
         sb.append(fibonacci(n));
