@@ -1,27 +1,29 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class Main {
+    static long[][]dp;
+    final static long MOD = 10_007;
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int N = sc.nextInt();
-		int[][] dp = new int[N+1][10];
-		
-		for(int i = 0; i < 10; i++) {
-			dp[0][i] = 1;
-		}
-		
-	
-		for(int i = 1; i < N+1; i++) {
-			for(int j = 0; j < 10; j++) {
-				for(int k = j; k < 10; k++) {
-					dp[i][j] += dp[i-1][k];
-					dp[i][j] %= 10007;
-				}
-			}
-		}
-		
-		System.out.println(dp[N][0] % 10007); 
-	}
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
 
+
+        dp = new long[1002][10];
+        for (int i = 0; i < 10; i++){
+            dp[1][i] = 1 % MOD;
+        }
+
+        for (int k = 2; k <= 1001; k++){
+            for (int i = 0; i < 10; i++){
+                for (int j = i; j < 10 ; j++){
+                    dp[k][i] += dp[k-1][j] % MOD;
+                }
+            }
+        }
+        System.out.println(dp[n+1][0] % MOD);
+        br.close();
+
+    }
 }
