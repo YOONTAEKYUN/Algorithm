@@ -1,26 +1,23 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringBuilder sb = new StringBuilder();
 
         int N = Integer.parseInt(br.readLine());
-        int[] value = new int[N];
+        int[] value = new int[10001];
         for (int i = 0 ; i< N; i++){
-            value[i] =Integer.parseInt(br.readLine());
+            value[Integer.parseInt(br.readLine())] ++;
         }
-        Arrays.sort(value);
 
-        for (int i =0; i< N; i++){
-            bw.write(value[i] + "\n");
+        for (int i =0; i< 10001; i++){
+            while (value[i] > 0){
+                sb.append(i).append("\n");
+                value[i]--;
+            }
         }
         br.close();
-        bw.flush();
-        bw.close();
+        System.out.println(sb);
     }
 }
