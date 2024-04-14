@@ -27,13 +27,8 @@ public class Main {
             prize = Math.max(x, Math.max(y, z)) * 100;
         }
 
-        // System.out.print(out_h);
-        // System.out.print(" ");
-        // System.out.println(out_m);
+        System.out.println(prize);
 
-        bw.write(prize + "\n");
-        bw.flush();
-        bw.close();
 
         br.close();
     }
