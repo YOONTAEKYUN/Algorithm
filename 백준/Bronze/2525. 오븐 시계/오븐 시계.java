@@ -36,13 +36,9 @@ public class Main {
             out_m = m + add_m;
         }
 
-        // System.out.print(out_h);
-        // System.out.print(" ");
-        // System.out.println(out_m);
-
-        bw.write(out_h + " " + out_m + "\n");
-        bw.flush();
-        bw.close();
+        System.out.print(out_h);
+        System.out.print(" ");
+        System.out.println(out_m);
 
         br.close();
     }
