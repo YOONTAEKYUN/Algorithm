@@ -7,52 +7,31 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int N = Integer.parseInt(br.readLine());
-        HashMap<String, Integer> cardList = new HashMap<>();
+        long[] cardList = new long[N];
 
-        int idx = 0;
-        long max = 0;
+        for (int i = 0; i < cardList.length; i++) {
+            cardList[i] = Long.parseLong(br.readLine());
+        }
 
-        long result = 0;
-        int firstMinCheck = 0;
+        Arrays.sort(cardList);
 
-        for (int i = 0; i < N; i++) {
-            String inputNum = br.readLine();
-            if (cardList.get(inputNum) == null) {
-                cardList.put(inputNum, 1);
+        long result = cardList[0]; // 초기화
+        int maxCount = 1; // 최대 빈도수
+        int count = 1; // 현재 빈도수
+
+        for (int i = 1; i < cardList.length; i++) {
+            if (cardList[i] == cardList[i - 1]) {
+                count++;
             } else {
-                int before = cardList.get(inputNum);
-                cardList.put(inputNum, before + 1);
+                count = 1;
+            }
+            if (count > maxCount) {
+                maxCount = count;
+                result = cardList[i];
             }
         }
 
-        int[] cardArray = new int[cardList.values().size() + 1];
-
-        for (int num : cardList.values()) {
-            cardArray[idx] = num;
-            idx++;
-        }
-        for (int i = 0; i < cardArray.length; i++) {
-
-            if (i == 0) {
-                max = cardArray[i];
-            } else {
-                max = Math.max(max, cardArray[i]);
-            }
-        }
-
-        for (String inputNum : cardList.keySet()) {
-            if (cardList.get(inputNum) == max) {
-                if (firstMinCheck == 0) {
-                    result = Long.parseLong(inputNum);
-                    firstMinCheck = 1;
-                } else {
-                    result = Math.min(result, Long.parseLong(inputNum));
-                }
-            }
-        }
-
-        System.out.println(String.valueOf(result));
-
+        System.out.println(result);
         br.close();
     }
 }
