@@ -11,8 +11,7 @@ public class Main {
         int M = Integer.parseInt(NM[1]);
 
         String[] inputString = br.readLine().split(" ");
-        int[] input = Arrays.asList(inputString).stream().mapToInt(Integer::parseInt).toArray();
-
+        int[] input = Arrays.stream(inputString).mapToInt(Integer::parseInt).toArray();
         int tempResult = 0;
 
         for (int i = 0; i < input.length - 2; i++) {
