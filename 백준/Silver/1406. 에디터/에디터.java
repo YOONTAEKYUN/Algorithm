@@ -1,50 +1,59 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
-public class Main{
-    public static void main(String args[]) throws IOException{
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+public class Main {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		String str = br.readLine();
+		int M = Integer.parseInt(br.readLine());
 
-        String text = br.readLine();
-        Stack<String> mainStack = new Stack<>();
-        Stack<String> subStack = new Stack<>();
+		LinkedList<Character> list = new LinkedList<Character>();
 
-        for (String string : text.split("")) {
-            mainStack.add(string);
-        }
+		for(int i = 0; i < str.length(); i++) {
+			list.add(str.charAt(i));
+		}
 
-        int N = Integer.parseInt(br.readLine());
+		ListIterator<Character> iter = list.listIterator();
+		while(iter.hasNext()) {
+			iter.next();
+		}
+	
+		for(int i = 0; i < M; i++) {
+			String command = br.readLine();
+			char c = command.charAt(0);
+			switch(c) {
+			case 'L':
+				if(iter.hasPrevious())
+					iter.previous();
 
-        for(int i = 0; i < N; i++){
-            String order = br.readLine();
-            if (order.contains("P")) {
-                mainStack.push(order.split(" ")[1]);
-            }else if(order.contains("L")){
-                if (!mainStack.isEmpty()) {
-                    subStack.push(mainStack.pop());
-                }
-            }else if(order.contains("D")){
-                if (!subStack.isEmpty()) {
-                    mainStack.push(subStack.pop());
-                }
-            }else if(order.contains("B")){
-                if (!mainStack.isEmpty()) {
-                    mainStack.pop();
-                }
-            }
-        }
-        
-        while (!mainStack.isEmpty()) {
-            subStack.push(mainStack.pop());
-        }
+				break;
+			case 'D':
+				if(iter.hasNext())
+					iter.next();
 
-        while (!subStack.isEmpty()) {
-            bw.write(subStack.pop());
-        }
+				break;
+			case 'B':
+				if(iter.hasPrevious()) {
+					iter.previous();
+					iter.remove();
+				}
+				break;
+			case 'P':
+				char t = command.charAt(2);
+				iter.add(t);
 
-        bw.flush();
-        bw.close();
-        br.close();
-    }
+				break;
+			default:
+				break;
+			}
+		}
+		for(Character chr : list) {
+			bw.write(chr);
+		}
+		
+		bw.flush();
+		bw.close(); 
+	}
 }
