@@ -1,59 +1,61 @@
 import java.io.*;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.ListIterator;
 
 public class Main {
+
 	public static void main(String[] args) throws IOException {
+
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		
-		String str = br.readLine();
-		int M = Integer.parseInt(br.readLine());
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-		LinkedList<Character> list = new LinkedList<Character>();
+        String string = br.readLine();
+        LinkedList<Character> textLink = new LinkedList<Character>();
 
-		for(int i = 0; i < str.length(); i++) {
-			list.add(str.charAt(i));
-		}
+        for (int i = 0; i < string.length(); i++) { textLink.add(string.charAt(i));}
+        int n = Integer.parseInt(br.readLine());
 
-		ListIterator<Character> iter = list.listIterator();
-		while(iter.hasNext()) {
-			iter.next();
-		}
-	
-		for(int i = 0; i < M; i++) {
-			String command = br.readLine();
-			char c = command.charAt(0);
-			switch(c) {
-			case 'L':
-				if(iter.hasPrevious())
-					iter.previous();
+        ListIterator<Character> textListIterator = textLink.listIterator();
+        while (textListIterator.hasNext()) { textListIterator.next(); }
 
-				break;
-			case 'D':
-				if(iter.hasNext())
-					iter.next();
+        for (int i = 0; i < n; i++) {
+            String order = br.readLine();
+            char code = order.charAt(0);
 
-				break;
-			case 'B':
-				if(iter.hasPrevious()) {
-					iter.previous();
-					iter.remove();
-				}
-				break;
-			case 'P':
-				char t = command.charAt(2);
-				iter.add(t);
+            switch (code) {
+                case 'L':
+                    if (textListIterator.hasPrevious()) {
+                        textListIterator.previous();
+                    }
+                    break;
+                    
+                case 'D':
+                    if (textListIterator.hasNext()) {
+                        textListIterator.next();
+                    }
+                    break;
+                case 'B':
+                    if (textListIterator.hasPrevious()) {
+                        textListIterator.previous();
+                        textListIterator.remove();
+                    }
+                    break;
+                case 'P':
+                    char value = order.charAt(2);
+                    textListIterator.add(value);
+                    break;
+            }
+        }
 
-				break;
-			default:
-				break;
-			}
-		}
-		for(Character chr : list) {
-			bw.write(chr);
-		}
-		
-		bw.flush();
-		bw.close(); 
+        while (textListIterator.hasPrevious()) {
+            textListIterator.previous();
+        }
+        for (char s : textLink) {
+            bw.write(s);
+        }
+        bw.flush();
+        bw.close();
+        br.close();
 	}
 }
+
