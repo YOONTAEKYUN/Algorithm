@@ -1,41 +1,39 @@
 import java.util.*;
 
 class Solution {
-    int[] dx = {-1,1,0,0};
-    int[] dy = {0,0,1,-1};
+    int[] x = {0,0,1,-1};
+    int[] y = {1,-1,0,0};
     
     public int solution(int[][] maps) {
-        Queue<int[]> q = new LinkedList<>();
         int n = maps.length;
         int m = maps[0].length;
-        boolean[][]  visited = new boolean[n][m];
-        
-        q.offer(new int[] {0,0,1});
+
+        boolean[][] visited = new boolean[n][m];
         visited[0][0] = true;
+        Queue<int[]> q = new LinkedList<>();
+        q.offer(new int[] {0,0,1});
         
         while(!q.isEmpty()) {
             int[] current = q.poll();
-            int x = current[0];
-            int y = current[1];
+            int dx = current[0];
+            int dy = current[1];
             int distance = current[2];
             
-            if(x == n-1 && y == m-1) {
+            if(dx == n - 1 && dy == m -1) {
                 return distance;
             }
             
             for(int i = 0; i < 4; i++) {
-                int nx = x + dx[i];
-                int ny = y + dy[i];
+                int cx = dx + x[i];
+                int cy = dy + y[i];
                 
-                if(nx >= 0 && ny >= 0 
-                   && nx < n && ny < m
-                   && maps[nx][ny] == 1 
-                   && !visited[nx][ny]){
-                    q.offer(new int[] {nx, ny, distance + 1});
-                    visited[nx][ny] = true;
+                if(cx >= 0 && cy >= 0 && cx < n && cy < m &&  maps[cx][cy] == 1 && !visited[cx][cy]) {
+                    q.offer(new int[] {cx, cy, distance + 1});
+                    visited[cx][cy] = true;
                 }
             }
         }
+        
         return -1;
     }
 }
